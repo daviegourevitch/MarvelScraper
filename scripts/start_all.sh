@@ -28,18 +28,21 @@ echo "Docker is ready."
 echo "[2/4] Starting Neo4j via docker compose..."
 docker compose -f "$PROJECT_ROOT_DIR/docker-compose.yml" up -d
 
-echo "[3/4] Waiting for Neo4j Bolt on localhost:7687..."
+echo "[3/4] Waiting for Neo4j to be ready..."
 TRIES=0
-until (echo > /dev/tcp/127.0.0.1/7687) >/dev/null 2>&1; do
+until docker compose -f "$PROJECT_ROOT_DIR/docker-compose.yml" logs neo4j 2>/dev/null | grep -q "Started."; do
   TRIES=$((TRIES+1))
   if [[ $TRIES -gt 120 ]]; then
-    echo "Timed out waiting for Neo4j to open Bolt port."
+    echo "Timed out waiting for Neo4j to start."
     docker compose -f "$PROJECT_ROOT_DIR/docker-compose.yml" logs neo4j | tail -n 100 || true
     exit 1
   fi
   sleep 1
 done
-echo "Neo4j Bolt is available."
+echo "Neo4j is ready."
+
+# Give it a moment more to fully accept connections
+sleep 3
 
 echo "[4/4] Running app with Bun..."
 cd "$PROJECT_ROOT_DIR"
