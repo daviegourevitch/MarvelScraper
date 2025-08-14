@@ -31,21 +31,42 @@ TypeScript scraper scaffold with Neo4j, storing data locally via Docker volumes.
 
    Neo4j Browser: http://localhost:7474
 
-4. Run the connection check:
+4. Run the full setup and tests:
 
    ```bash
-   bun run start
+   bun run up
    ```
 
-   You should see: `Neo4j connection OK. Wrote health-check node.`
+   This will start Docker, Neo4j, and run comprehensive scraping tests.
 
 ## Scripts
 
+- `bun run up` – **start everything** (Docker + Neo4j + run tests)
+- `bun run test` – run quick scraper test (requires Neo4j running)
+- `bun run start` – run full test suite
 - `bun run dev` – run in hot-reload mode
-- `bun run start` – run the app directly (TS supported)
-- `bun run neo4j:up` – start Neo4j via Docker
+- `bun run neo4j:up` – start Neo4j via Docker only
 - `bun run neo4j:down` – stop Neo4j
 - `bun run neo4j:logs` – tail logs
+
+## Features
+
+✅ **Wiki Scraping** - Uses `hermitpurple` to scrape Wikia/Fandom sites  
+✅ **Neo4j Storage** - Stores scraped data as Character nodes  
+✅ **Multiple Wikis** - Supports Marvel, JoJo, DC, Pokemon, and more  
+✅ **TypeScript** - Full type safety with Bun runtime  
+✅ **Local Data** - All Neo4j data stored in `./neo4j/` directory  
+
+## Quick Test
+
+Edit `src/test-scraper.ts` to change the wiki and search terms:
+
+```typescript
+const WIKI = 'marvel';     // Try: 'jojo', 'dc', 'pokemon'
+const QUERY = 'Thor';      // Try: 'Batman', 'Pikachu'
+```
+
+Then run: `bun run test`
 
 ## Environment
 

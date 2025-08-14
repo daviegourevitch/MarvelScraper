@@ -8,6 +8,7 @@
     "start": "bun src/index.ts",
     "dev": "bun --hot src/index.ts",
     "up": "bash scripts/start_all.sh",
+    "test": "bun src/test-scraper.ts",
     "neo4j:up": "docker compose up -d",
     "neo4j:down": "docker compose down",
     "neo4j:logs": "docker compose logs -f | cat"
