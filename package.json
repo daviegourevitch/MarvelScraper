@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "hermitpurple": "^0.2.0",
     "neo4j-driver": "^5.22.0"
   },
   "devDependencies": {
@@ -21,4 +22,3 @@
   },
   "packageManager": "bun@1.1.26"
 }
-
