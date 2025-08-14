@@ -6,3 +6,6 @@ node_modules
 .vscode
 coverage
 
+# Neo4j local data
+neo4j/
+
